@@ -25,3 +25,9 @@ Copy each folder’s `.env.example` → `.env` and fill keys.
 One service runs all three parts. Public URL is the Part 1 web UI (proxies Part 2/3).
 
 Camera hardware is local-only; on Railway use chat / STATUS / Approve against live Linq + Prava sandbox.
+
+
+## Links
+
+- **GitHub:** https://github.com/dhru7777/Prava-Hackathon
+- **Live demo (Railway):** https://web-production-1b465.up.railway.app
