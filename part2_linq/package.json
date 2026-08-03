@@ -1,0 +1,32 @@
+{
+  "name": "milkwatch-linq-part2",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "subscribe": "tsx src/subscribe-webhook.ts",
+    "send": "tsx src/send.ts",
+    "test:part2": "tsx src/test-part2.ts",
+    "test:inventory": "tsx src/inventory/csvStore.ts && tsx src/inventory/mapVision.ts && tsx src/inventory/scanner.ts",
+    "test:agent-context": "tsx src/agent/context.ts",
+    "test:agent-memory": "tsx src/agent/memory.ts",
+    "test:agent-brain": "tsx src/agent/openaiBrain.ts",
+    "test:orchestrator": "tsx src/agent/orchestrator.ts",
+    "test:modules": "npm run test:inventory && npm run test:agent-memory && npm run test:agent-context && npm run test:orchestrator",
+    "test:vision-cases": "tsx src/test-vision-cases.ts",
+    "tunnel:watch": "bash scripts/tunnel-watch.sh"
+  },
+  "dependencies": {
+    "@linqapp/sdk": "^0.1.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0"
+  }
+}

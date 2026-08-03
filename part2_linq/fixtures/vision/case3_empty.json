@@ -1,0 +1,14 @@
+{
+  "case": "3_empty",
+  "description": "Milk jug empty / tiny puddle (~5%) — state empty/low; should trigger restock alert path",
+  "objects": [
+    {
+      "label": "milk",
+      "confidence": 0.91,
+      "fill_percent": 5,
+      "state": "empty",
+      "fill_estimate": "nearly empty — small puddle",
+      "box_2d": [120, 250, 880, 750]
+    }
+  ]
+}

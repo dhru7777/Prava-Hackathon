@@ -1,0 +1,28 @@
+{
+  "name": "milkwatch-prava-part3",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "start:ui": "UI_PORT=8790 tsx src/server.ts",
+    "dev": "tsx watch src/server.ts",
+    "test:discover": "tsx src/test-discover.ts",
+    "order": "tsx src/order-cli.ts",
+    "prava": "prava",
+    "setup": "prava setup --name \"MilkWatch Part3\"",
+    "setup:poll": "prava setup poll",
+    "status": "prava status"
+  },
+  "dependencies": {
+    "@prava-sdk/cli": "^3.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0"
+  }
+}

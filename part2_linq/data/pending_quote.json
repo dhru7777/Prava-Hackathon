@@ -1,0 +1,11 @@
+{
+  "offerId": "2f3d2947ccaa",
+  "title": "Dozen Eggs",
+  "merchant": "rootedraymond.com",
+  "quantity": 1,
+  "quoteTotal": "$12.95 USD",
+  "paymentUrl": "https://sandbox.collect.prava.space?session=ses_01KZ2FS1RFXEMDNA6TPSB47S7E",
+  "orderId": "ord_aad77af456",
+  "checkoutSessionId": "checkout_096fc28fff1b4d06",
+  "at": "2026-08-03T00:18:31.944Z"
+}

@@ -1,0 +1,30 @@
+{
+  "at": "2026-08-03T00:17:46.241Z",
+  "objects": [
+    {
+      "label": "egg_carton",
+      "confidence": 0.95,
+      "fill_percent": null,
+      "state": null,
+      "fill_estimate": "3 eggs visible in carton",
+      "box_2d": [
+        80,
+        180,
+        680,
+        920
+      ]
+    }
+  ],
+  "upserts": [
+    {
+      "sku_id": "EGG-LG-DZ",
+      "sku_name": "Large eggs dozen",
+      "category": "eggs",
+      "unit": "dozen",
+      "qty_on_hand": 1,
+      "par_level": 20,
+      "avg_daily_use_7d": 14,
+      "source": "vision"
+    }
+  ]
+}

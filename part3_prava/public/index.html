@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <title>Part 3 · Offers & Pay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f3f5f2;
+      --ink: #1c2434;
+      --muted: #5d6b63;
+      --line: rgba(36,48,40,0.14);
+      --ok: #1f6b45;
+      --bad: #8a3b2e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(120% 90% at 10% 0%, #e7f2ea 0%, transparent 50%),
+        radial-gradient(90% 70% at 100% 100%, #e8eef8 0%, transparent 45%),
+        var(--bg);
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.75rem 1.1rem 3rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      margin: 0.35rem 0 1.1rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #1f2a24;
+      color: #f5f7f4;
+    }
+    button.secondary {
+      background: transparent;
+      color: #1f2a24;
+      box-shadow: inset 0 0 0 1px rgba(31,42,36,0.22);
+    }
+    button:disabled { opacity: 0.45; cursor: wait; }
+    .status { font-size: 0.75rem; color: var(--muted); }
+    .note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 0 0 1rem;
+      padding: 0.65rem 0.75rem;
+      background: rgba(255,255,255,0.55);
+      border-radius: 10px;
+    }
+    .offer {
+      padding: 0.85rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .offer .title { font-weight: 600; font-size: 0.95rem; }
+    .offer .meta {
+      margin-top: 0.25rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .row {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .chip {
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #3d5248;
+    }
+    .chip.ok { color: var(--ok); }
+    .chip.bad { color: var(--bad); }
+    input[type="number"] {
+      width: 3.2rem;
+      border: 1px solid rgba(31,42,36,0.2);
+      border-radius: 6px;
+      padding: 0.28rem 0.35rem;
+      font: inherit;
+      font-size: 0.82rem;
+      background: rgba(255,255,255,0.75);
+    }
+    .offer button {
+      background: #fff;
+      color: #1f2a24;
+      box-shadow: inset 0 0 0 1px rgba(31,42,36,0.18);
+    }
+    .offer button.pay {
+      background: #1f2a24;
+      color: #f5f7f4;
+      box-shadow: none;
+    }
+    #paybox { margin-top: 1rem; font-size: 0.8rem; color: #3d5248; }
+    #paybox a { color: #1c4d8c; }
+    .empty { color: var(--muted); font-size: 0.9rem; padding: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Inventory · Offers &amp; Pay</h1>
+    <p class="sub">Standalone Part 3 UI on this port. Quote one item at a time (Prava limits open checkouts).</p>
+    <p class="note" id="hint">
+      Tip: Discover → Quote one item → Pay.
+      Pay defaults to <b>sandbox</b> when <code>sk_test_</code> is set (CARD-03: …2200 / CVV <b>93</b> / <b>12/30</b> / OTP 456789 on sandbox.collect).
+      CLI/MCP are production-only — real Visa needed for live pay.
+    </p>
+    <div class="bar">
+      <button type="button" id="discoverBtn">Discover milk &amp; eggs</button>
+      <button type="button" class="secondary" id="refreshBtn">Refresh</button>
+      <button type="button" class="secondary" id="resetBtn">Clear errors</button>
+      <span class="status" id="status">idle</span>
+    </div>
+    <div id="ship" class="status">Ship-to: —</div>
+    <div id="list" class="empty">Click Discover to search.</div>
+    <div id="paybox"></div>
+  </main>
+  <script>
+    const API = "";
+    const qtyMap = {};
+    let payOrderId = null;
+    let payConfig = { sandboxConfigured: false, defaultMode: "live" };
+
+    async function loadPayConfig() {
+      try {
+        payConfig = await (await fetch(API + "/api/part3/pay-config")).json();
+      } catch (e) { /* ignore */ }
+    }
+
+    function esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function render(snap) {
+      document.getElementById("ship").textContent = "Ship-to: " + (snap.shipToLabel || "—");
+      document.getElementById("status").textContent =
+        (snap.status || "idle") + (snap.message ? " · " + snap.message : "");
+      const list = document.getElementById("list");
+      const rows = (snap.rows || []).filter(function (o) {
+        // Only show clean / payable rows — hide rate-limit & won't-ship noise
+        return o.status === "quoted" || o.status === "discovered";
+      });
+      if (!rows.length) {
+        list.className = "empty";
+        list.textContent = "No payable offers yet. Discover, then Quote one item that ships to you.";
+        return;
+      }
+      list.className = "";
+      list.innerHTML = rows.map(function (o) {
+        const qty = qtyMap[o.id] != null ? qtyMap[o.id] : (o.quantity || 1);
+        qtyMap[o.id] = qty;
+        let chipClass = "chip";
+        let chip = o.status || "discovered";
+        if (o.status === "quoted") { chipClass += " ok"; chip = "quoted"; }
+        if (o.status === "unshippable" || o.status === "error") {
+          chipClass += " bad";
+          chip = o.status === "unshippable" ? "won't ship" : "error";
+        }
+        const delivery = o.deliveryEstimate || (o.error ? o.error.slice(0, 120) : "not quoted yet");
+        const total = o.quoteTotal || "—";
+        const canPay = o.status === "quoted" && o.checkoutSessionId && o.quoteTotal;
+        return (
+          '<div class="offer" data-id="' + esc(o.id) + '">' +
+            '<div class="title">' + esc(o.title) + '</div>' +
+            '<div class="meta">' + esc(o.merchant) + ' · ' + esc(o.priceEstimate) +
+              '<br>Delivery: ' + esc(delivery) +
+              '<br>Total: ' + esc(total) +
+            '</div>' +
+            '<div class="row">' +
+              '<span class="' + chipClass + '">' + esc(chip) + '</span>' +
+              '<label>Qty <input type="number" min="1" max="5" data-id="' + esc(o.id) +
+                '" value="' + qty + '" /></label>' +
+              '<button type="button" data-action="quote" data-id="' + esc(o.id) + '">Quote</button>' +
+              '<button type="button" class="pay" data-action="pay" data-id="' + esc(o.id) + '" ' +
+                (canPay ? "" : "disabled ") + ">Pay</button>" +
+            "</div>" +
+          "</div>"
+        );
+      }).join("");
+    }
+
+    async function refresh() {
+      const res = await fetch(API + "/api/part3/offers");
+      const snap = await res.json();
+      if (!res.ok) throw new Error(snap.error || "offers failed");
+      render(snap);
+    }
+
+    async function discover() {
+      const btn = document.getElementById("discoverBtn");
+      btn.disabled = true;
+      document.getElementById("status").textContent = "discovering…";
+      try {
+        const res = await fetch(API + "/api/part3/discover", { method: "POST" });
+        const data = await res.json();
+        if (!res.ok && res.status !== 409) throw new Error(data.error || "discover failed");
+        for (let i = 0; i < 90; i++) {
+          await new Promise(function (r) { setTimeout(r, 1500); });
+          await refresh();
+          const snap = await (await fetch(API + "/api/part3/offers")).json();
+          if (snap.status === "ready" || snap.status === "error") break;
+        }
+      } catch (e) {
+        document.getElementById("status").textContent = "Error: " + e.message;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function quote(id) {
+      const input = document.querySelector('input[data-id="' + id + '"]');
+      const qty = input ? Math.max(1, Math.min(5, Number(input.value) || 1)) : 1;
+      qtyMap[id] = qty;
+      document.getElementById("status").textContent = "quoting…";
+      const res = await fetch(API + "/api/part3/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ offerId: id, quantity: qty }),
+      });
+      const data = await res.json();
+      await refresh();
+      if (!res.ok) {
+        document.getElementById("status").textContent = data.error || "quote failed";
+        if (/Too many open checkouts/i.test(data.error || "")) {
+          document.getElementById("hint").textContent =
+            "Prava still has open checkout sessions from earlier quotes. Wait 3–5 minutes, then Quote one item only.";
+        }
+        return;
+      }
+      document.getElementById("status").textContent =
+        "quoted · " + (data.quote && data.quote.quoteTotal ? data.quote.quoteTotal : "ok");
+    }
+
+    async function pay(id) {
+      const snap = await (await fetch(API + "/api/part3/offers")).json();
+      const o = (snap.rows || []).find(function (r) { return r.id === id; });
+      if (!o || !o.checkoutSessionId || !o.quoteTotal) {
+        document.getElementById("status").textContent = "Quote first";
+        return;
+      }
+      const qty = qtyMap[id] || o.quantity || 1;
+      const mode = payConfig.defaultMode || (payConfig.sandboxConfigured ? "sandbox" : "live");
+      const cardHint = mode === "sandbox"
+        ? "\n\nSandbox CARD-03: 4622943123232200 / CVV 93 / exp 12/30 / OTP 456789\n(Open sandbox.collect in Chrome/Safari — not Cursor webview)"
+        : "\n\nLive pay needs a real US/CA/SEA Visa (team sandbox card will NOT work).";
+      const ok = window.confirm(
+        "Pay " + o.quoteTotal + " to " + o.merchant +
+        " for qty " + qty + " x " + o.title +
+        "\nMode: " + mode +
+        "\nShip-to: " + (o.shipToLabel || snap.shipToLabel || "default") +
+        cardHint
+      );
+      if (!ok) return;
+      const res = await fetch(API + "/api/part3/pay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          checkoutSessionId: o.checkoutSessionId,
+          merchant: o.merchant,
+          total: o.quoteTotal,
+          currency: o.currency || "USD",
+          title: o.title,
+          quantity: qty,
+          confirm: true,
+          mode: mode,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        document.getElementById("status").textContent = data.error || "pay failed";
+        return;
+      }
+      payOrderId = data.order && data.order.id;
+      const url = data.order && data.order.paymentUrl;
+      const modeLabel = (data.order && data.order.payMode) || mode;
+      document.getElementById("paybox").innerHTML = url
+        ? "[" + esc(modeLabel) + "] Approve: <a href=\"" + esc(url) + "\" target=\"_blank\" rel=\"noopener\">Open Prava</a>"
+        : "Awaiting passkey…";
+      if (url) window.open(url, "_blank");
+    }
+
+    async function pollPay() {
+      if (!payOrderId) return;
+      const res = await fetch(API + "/api/part3/orders/" + payOrderId);
+      if (!res.ok) return;
+      const o = await res.json();
+      document.getElementById("status").textContent = "pay · " + o.status;
+      const box = document.getElementById("paybox");
+      if (o.status === "paid") {
+        box.textContent = "Paid" + (o.orderId ? " · " + o.orderId : "");
+        payOrderId = null;
+      } else if (o.status === "failed") {
+        box.textContent = "Failed: " + (o.error || "unknown");
+        payOrderId = null;
+      }
+    }
+
+    document.getElementById("discoverBtn").onclick = discover;
+    document.getElementById("refreshBtn").onclick = function () {
+      refresh().catch(function (e) {
+        document.getElementById("status").textContent = e.message;
+      });
+    };
+    document.getElementById("resetBtn").onclick = async function () {
+      await fetch(API + "/api/part3/reset", { method: "POST" });
+      await refresh();
+      document.getElementById("hint").textContent =
+        "Errors cleared. If quotes still fail with “Too many open checkouts”, wait 3–5 minutes, then Quote only ONE product.";
+    };
+    document.getElementById("list").addEventListener("click", function (e) {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn || btn.disabled) return;
+      const id = btn.getAttribute("data-id");
+      if (btn.getAttribute("data-action") === "quote") quote(id);
+      if (btn.getAttribute("data-action") === "pay") pay(id);
+    });
+    document.getElementById("list").addEventListener("change", function (e) {
+      const input = e.target.closest("input[data-id]");
+      if (!input) return;
+      qtyMap[input.getAttribute("data-id")] = Math.max(1, Math.min(5, Number(input.value) || 1));
+    });
+
+    setInterval(function () {
+      refresh().catch(function () {});
+      pollPay();
+    }, 4000);
+    loadPayConfig().then(function () {
+      return refresh();
+    }).catch(function (e) {
+      document.getElementById("status").textContent = e.message;
+    });
+  </script>
+</body>
+</html>

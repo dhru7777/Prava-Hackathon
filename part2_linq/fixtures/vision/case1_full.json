@@ -1,0 +1,14 @@
+{
+  "case": "1_full",
+  "description": "Milk jug nearly full (~95%) — state ok",
+  "objects": [
+    {
+      "label": "milk",
+      "confidence": 0.96,
+      "fill_percent": 95,
+      "state": "ok",
+      "fill_estimate": "nearly full",
+      "box_2d": [80, 220, 920, 780]
+    }
+  ]
+}

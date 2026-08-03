@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MilkWatch · Chats</title>
+  <style>
+    :root { font-family: ui-sans-serif, system-ui, sans-serif; color: #152018; background: #f3f6f2; }
+    body { max-width: 720px; margin: 1.5rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.25rem; margin: 0 0 0.25rem; }
+    .sub { color: #4a5c50; font-size: 0.9rem; margin-bottom: 1rem; }
+    .bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    button { background: #1f6b45; color: #fff; border: 0; padding: 0.45rem 0.75rem; border-radius: 6px; cursor: pointer; }
+    button.secondary { background: #3d5248; }
+    button.case { background: #1a4f7a; }
+    #log { display: flex; flex-direction: column; gap: 0.5rem; }
+    .bubble { padding: 0.65rem 0.8rem; border-radius: 10px; max-width: 92%; white-space: pre-wrap; font-size: 0.9rem; }
+    .user { align-self: flex-end; background: #d7ebff; }
+    .agent { align-self: flex-start; background: #fff; border: 1px solid #d5e0d8; }
+    .system { align-self: center; background: #eee8d5; font-size: 0.8rem; }
+    .meta { color: #6a7a70; font-size: 0.7rem; margin-top: 0.25rem; }
+    #status { font-size: 0.8rem; color: #3d5248; margin-bottom: 0.75rem; }
+    .note { background: #e8f0ea; border: 1px solid #c5d6cb; padding: 0.65rem 0.8rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>MilkWatch chats</h1>
+  <p class="sub">Live view of <code>data/chats.csv</code> — refreshes every 3s.</p>
+  <div class="note">
+    <strong>Not fake AI</strong> — agent text is real (gpt-4o / tools). Buttons below use
+    <em>dry-run</em>: status is written here, but iMessage is not sent.
+    Live phone: Part1 camera → <code>vision-snapshot</code> with dryRun off, or reply on Linq.
+  </div>
+  <div class="bar">
+    <button type="button" id="refresh">Refresh</button>
+    <button type="button" class="case" id="caseFull">Case 1 · full</button>
+    <button type="button" class="case" id="caseHalf">Case 2 · half</button>
+    <button type="button" class="case" id="caseEmpty">Case 3 · empty</button>
+    <button type="button" class="secondary" id="simStatus">Human: STATUS</button>
+    <button type="button" class="secondary" id="simApprove">Human: APPROVE</button>
+  </div>
+  <div id="status">loading…</div>
+  <div id="log"></div>
+  <script>
+    function esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    async function load() {
+      const res = await fetch("/api/chats?limit=80");
+      const data = await res.json();
+      const log = document.getElementById("log");
+      log.innerHTML = "";
+      const chats = data.chats || [];
+      document.getElementById("status").textContent =
+        chats.length + " turns · " + new Date().toLocaleTimeString();
+      for (const c of chats) {
+        const div = document.createElement("div");
+        div.className = "bubble " + (c.role || "agent");
+        div.innerHTML = esc(c.text) +
+          '<div class="meta">' + esc(c.role) + " · " + esc(c.ts) +
+          (c.intent ? " · " + esc(c.intent) : "") +
+          (c.outcome ? " · " + esc(c.outcome) : "") + "</div>";
+        log.appendChild(div);
+      }
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+    async function sim(text) {
+      document.getElementById("status").textContent = "simulating human…";
+      await fetch("/api/agent/simulate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: text, dryRun: true }),
+      });
+      await load();
+    }
+    async function runCase(c) {
+      document.getElementById("status").textContent = "camera case " + c + "…";
+      await fetch("/api/agent/run-vision-case", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case: c, dryRun: true }),
+      });
+      await load();
+    }
+    document.getElementById("refresh").onclick = load;
+    document.getElementById("caseFull").onclick = function () { runCase("1_full"); };
+    document.getElementById("caseHalf").onclick = function () { runCase("2_half"); };
+    document.getElementById("caseEmpty").onclick = function () { runCase("3_empty"); };
+    document.getElementById("simStatus").onclick = function () { sim("STATUS"); };
+    document.getElementById("simApprove").onclick = function () { sim("APPROVE"); };
+    load();
+    setInterval(load, 3000);
+  </script>
+</body>
+</html>

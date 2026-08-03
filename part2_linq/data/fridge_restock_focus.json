@@ -1,0 +1,10 @@
+{
+  "focus": "eggs",
+  "at": "2026-08-03T00:17:46.412Z",
+  "needed": {
+    "milk": false,
+    "eggs": true,
+    "milkFill": null,
+    "eggFill": null
+  }
+}

@@ -1,0 +1,113 @@
+{"at":"2026-08-02T12:23:29.714Z","type":"self_test"}
+{"at":"2026-08-02T12:28:44.096Z","type":"vision_case","case":"1_full","milk":"0.95 gal (runway 0.43d)"}
+{"at":"2026-08-02T12:28:45.818Z","type":"vision_case","case":"2_half","milk":"0.5 gal (runway 0.23d)"}
+{"at":"2026-08-02T12:28:47.089Z","type":"vision_case","case":"3_empty","milk":"0.05 gal (runway 0.02d)"}
+{"at":"2026-08-02T12:30:46.218Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T12:30:47.628Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T12:34:56.297Z","type":"vision_recognition","case":"1_full","objects":[{"label":"milk","confidence":0.96,"fill_percent":95,"state":"ok","fill_estimate":"nearly full","box_2d":[80,220,920,780]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T12:34:56.298Z","type":"vision_case","case":"1_full","milk":"0.95 gal (runway 0.43d)","dryRun":true}
+{"at":"2026-08-02T12:34:56.299Z","type":"vision_recognition","case":"2_half","objects":[{"label":"milk","confidence":0.93,"fill_percent":50,"state":"low","fill_estimate":"about half","box_2d":[100,240,900,760]},{"label":"egg_carton","confidence":0.88,"fill_percent":null,"box_2d":[200,50,600,400]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T12:34:56.299Z","type":"vision_case","case":"2_half","milk":"0.5 gal (runway 0.23d)","dryRun":true}
+{"at":"2026-08-02T12:34:56.300Z","type":"vision_recognition","case":"3_empty","objects":[{"label":"milk","confidence":0.91,"fill_percent":5,"state":"empty","fill_estimate":"nearly empty — small puddle","box_2d":[120,250,880,750]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T12:34:56.300Z","type":"vision_case","case":"3_empty","milk":"0.05 gal (runway 0.02d)","dryRun":true}
+{"at":"2026-08-02T12:34:56.379Z","type":"vision_recognition","case":"3_empty","objects":[{"label":"milk","confidence":0.91,"fill_percent":5,"state":"empty","fill_estimate":"nearly empty — small puddle","box_2d":[120,250,880,750]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T12:38:03.035Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T13:08:28.458Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD"}
+{"at":"2026-08-02T13:23:23.985Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T13:23:23.986Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T13:23:30.029Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T13:23:30.029Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T13:40:15.516Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1B2AJ196P7G438RXY3N01D"}
+{"at":"2026-08-02T13:40:54.650Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T13:40:54.652Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T13:52:45.330Z","type":"tool","name":"request_location"}
+{"at":"2026-08-02T13:52:45.577Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T13:54:35.484Z","type":"tool","name":"request_location"}
+{"at":"2026-08-02T13:54:35.689Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T14:02:18.418Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:02:18.418Z","type":"tool","name":"get_location"}
+{"at":"2026-08-02T14:15:30.516Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1D35RREWZPDFC5HBH9GP14"}
+{"at":"2026-08-02T14:22:08.992Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.95,"fill_percent":85,"state":"ok","fill_estimate":"approximately 85% full","box_2d":[75,315,650,685]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:22:09.095Z","type":"proactive_alert","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:26:38.761Z","type":"payment_successful","title":"Smooth Dark Chocolate","merchant":"theconsciousbar.co","total":"$19.99 USD","orderId":"ord_01KZ1DW14YA6627TNM00BWTK35"}
+{"at":"2026-08-02T14:33:53.700Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":12,"state":"low","fill_estimate":"nearly empty, small liquid puddle in bottom corner","box_2d":[95,520,480,780]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:33:53.887Z","type":"proactive_alert","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:35:45.816Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":12,"state":"low","fill_estimate":"nearly empty, ~10-15%, small liquid pool visible at bottom","box_2d":[65,720,580,980]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:35:45.934Z","type":"proactive_alert","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:39:23.270Z","type":"payment_successful","title":"DIVINE STARTER SELECTION PACK (5 UNIQUE COFFEES)","merchant":"divinecoffee.co.uk","total":"$64.00 USD","orderId":"ord_01KZ1EFKD8GFXW332K5ZMJABK9"}
+{"at":"2026-08-02T14:43:12.501Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":85,"state":"ok","fill_estimate":"approximately 85% full - visible liquid level near top","box_2d":[80,420,680,780]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:43:12.606Z","type":"proactive_alert","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:43:29.816Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.95,"fill_percent":10,"state":"low","fill_estimate":"nearly empty, ~10% - small liquid pool visible at bottom","box_2d":[5,520,580,1000]}],"summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:43:29.923Z","type":"proactive_alert","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T14:48:03.336Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":12,"state":"low","fill_estimate":"nearly empty / ~12% - small puddle visible in bottom corner","box_2d":[8,420,580,780]}],"focus":"milk","summary":"Camera check\n• milk 12%\n\nMilk looks low on camera (~12%) — restock milk.\nNext: APPROVE to order milk (not eggs).\n\nReply APPROVE · STATUS · SKIP"}
+{"at":"2026-08-02T15:00:16.442Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.85,"fill_percent":10,"state":"low","fill_estimate":"nearly empty, ~10% - small liquid pool visible at bottom","box_2d":[80,520,520,780]}],"focus":"both","summary":"Needed: milk (~10%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T15:07:00.308Z","type":"payment_successful","title":"Whole Milk Powder","merchant":"checkout.znaturalfoods.com","total":"$19.28 USD","orderId":"ord_01KZ1G327XD8ZP3KC7TQ0T4QK3"}
+{"at":"2026-08-02T15:34:01.226Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":15,"state":"low","fill_estimate":"nearly empty, ~15% - small liquid pool visible at bottom","box_2d":[45,420,520,720]}],"focus":"both","summary":"Needed: milk (~15%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T15:36:02.718Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1HTQPYEKBKXY0B1GEC6NP6"}
+{"at":"2026-08-02T16:03:14.996Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T16:03:14.997Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T16:12:14.793Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T16:12:14.798Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T16:26:25.010Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T16:26:25.011Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T16:26:44.698Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T16:26:44.699Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T16:29:21.348Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":10,"state":"low","fill_estimate":"nearly empty, ~10% - small liquid pool visible at bottom","box_2d":[45,420,620,720]}],"focus":"both","summary":"Needed: milk (~10%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T16:39:46.803Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T16:39:46.804Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T16:42:10.213Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1NKGZKY8DK116B14CYV5PJ","quantity":1,"receipt":"Receipt\n────────\nEgg Box\nnourishfoodclub.com\nQty 1 · $66.65 USD\nPaid ✓ · Visa ····2200\nOrder ord_01KZ1NKGZKY8DK116B14CYV5PJ\n────────\nMilkWatch · sandbox"}
+{"at":"2026-08-02T16:48:02.252Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T16:48:02.261Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T16:59:38.024Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T16:59:38.026Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T17:01:16.122Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1PPX5846ZVXBP947CQDX6D","quantity":1,"receipt":"Receipt\nEgg Box\nnourishfoodclub.com\nQty 1 · $66.65 USD\nPaid ✓ · Visa ····2200\nOrder ord_01KZ1PPX5846ZVXBP947CQDX6D"}
+{"at":"2026-08-02T17:05:46.219Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":null,"box_2d":[180,280,580,780]}],"focus":"eggs","summary":"Needed: eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T17:09:05.414Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.98,"fill_percent":null,"state":null,"fill_estimate":null,"box_2d":[95,145,580,850]}],"focus":"eggs","summary":"Needed: eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T17:11:09.881Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1Q8RQBV8HY8GH9E42MK4A0","quantity":1,"receipt":"Receipt\nItem: Egg Box\nMerchant: nourishfoodclub.com\nQty: 1\nTotal: $66.65 USD\nPaid: Visa ····2200\nOrder: ord_01KZ1Q8RQBV8HY8GH9E42MK4A0\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT","delivery":"Delivery\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT"}
+{"at":"2026-08-02T17:53:39.621Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":10,"state":"low","fill_estimate":"nearly empty - ~10%, small liquid pool visible at bottom","box_2d":[80,320,680,580]}],"focus":"both","summary":"Needed: milk (~10%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T17:55:22.775Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1STFQ0DZ60E02BX7SSFQNC","quantity":1,"receipt":"Receipt\nItem: Egg Box\nMerchant: nourishfoodclub.com\nQty: 1\nTotal: $66.65 USD\nPaid: Visa ····2200\nOrder: ord_01KZ1STFQ0DZ60E...\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT","delivery":"Delivery\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT"}
+{"at":"2026-08-02T18:30:59.271Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:30:59.272Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:31:48.642Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":12,"state":"low","fill_estimate":"nearly empty, small liquid pool at bottom (~10-12%)","box_2d":[5,420,620,780]}],"focus":"both","summary":"Needed: milk (~12%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T18:32:21.886Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:32:21.887Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:35:26.168Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1W2W6WQTK3H2TRH9EXNEVX","quantity":1,"receipt":"Receipt\nItem: Egg Box\nMerchant: nourishfoodclub.com\nQty: 1\nTotal: $66.65 USD\nPaid: Visa ····2200\nOrder: ord_01KZ1W2W6WQTK3H...\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT","delivery":"Delivery\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT"}
+{"at":"2026-08-02T18:35:45.478Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:35:45.479Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:35:46.972Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:35:46.972Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:37:06.942Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:37:06.943Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:39:20.945Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:39:20.946Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:39:44.558Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:39:44.559Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:40:18.117Z","type":"tool","name":"run_restock_approve","args":{}}
+{"at":"2026-08-02T18:42:10.652Z","type":"payment_successful","title":"Dozen Eggs","merchant":"rootedraymond.com","total":"$12.95 USD","orderId":"ord_01KZ1WFEE8X5F3WSFH1FFESWGT","quantity":1,"receipt":"Receipt\nItem: Dozen Eggs\nMerchant: rootedraymond.com\nQty: 1\nTotal: $12.95 USD\nPaid: Visa ····2200\nOrder: ord_01KZ1WFEE8X5F3W...\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT","delivery":"Delivery\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT"}
+{"at":"2026-08-02T18:42:19.163Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:42:19.164Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:48:32.429Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":8,"state":"low","fill_estimate":"nearly empty - small liquid pool visible at bottom","box_2d":[45,420,520,720]}],"focus":"both","summary":"Needed: milk (~8%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T18:53:28.116Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T18:53:28.124Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T18:54:08.246Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":10,"state":"low","fill_estimate":"nearly empty - small liquid pool visible at bottom, ~10%","box_2d":[95,520,580,780]}],"focus":"both","summary":"Needed: milk (~10%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T18:54:50.364Z","type":"tool","name":"run_restock_approve","args":{}}
+{"at":"2026-08-02T18:55:58.919Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":10,"state":"low","fill_estimate":"nearly empty - small liquid pool visible in bottom portion","box_2d":[80,420,650,720]}],"focus":"both","summary":"Needed: milk (~10%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T18:56:47.372Z","type":"payment_successful","title":"Egg Box","merchant":"nourishfoodclub.com","total":"$66.65 USD","orderId":"ord_01KZ1XADYSDVSSY5Z4ZEJQMKNE","quantity":1,"receipt":"Receipt\nItem: Egg Box\nMerchant: nourishfoodclub.com\nQty: 1\nTotal: $66.65 USD\nPaid: Visa ····2200\nOrder: ord_01KZ1XADYSDVSSY...\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT","delivery":"Delivery\nDeliver to: East Village Café\nAddress: East Village, Manhattan, New York, NY, United States\nETA: Sun, Aug 2, 5:31 AM EDT"}
+{"at":"2026-08-02T18:58:46.616Z","type":"vision_recognition","objects":[{"label":"milk","confidence":0.92,"fill_percent":12,"state":"low","fill_estimate":"nearly empty, small liquid pool at bottom","box_2d":[85,320,720,580]}],"focus":"both","summary":"Needed: milk (~12%), eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T19:00:50.570Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T19:00:50.574Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T19:01:28.326Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T19:01:28.328Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-02T22:08:46.970Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":null,"box_2d":[210,280,550,920]}],"focus":"eggs","summary":"Needed: eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T22:11:17.330Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":null,"box_2d":[245,210,580,790]}],"focus":"eggs","summary":"Needed: eggs\nReply APPROVE to restock."}
+{"at":"2026-08-02T22:39:13.849Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.98,"fill_percent":null,"state":null,"fill_estimate":"4 eggs present out of 12 slots","box_2d":[50,100,650,950]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-02T22:54:21.021Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":"4 eggs present out of 12 capacity","box_2d":[245,185,485,750]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-02T23:26:06.300Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.98,"fill_percent":null,"state":null,"fill_estimate":"partially filled with 4 eggs visible","box_2d":[95,180,680,980]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-02T23:29:50.840Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":"2 eggs visible out of 12 capacity","box_2d":[180,280,480,720]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-02T23:35:41.297Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":"2 eggs remaining out of 12","box_2d":[180,280,420,920]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-02T23:36:39.662Z","type":"status_vision","source":"dummy","case":"2_half","summary":"Restock needed: Large eggs dozen (below 15% of par)"}
+{"at":"2026-08-02T23:36:39.669Z","type":"tool","name":"get_location","args":{}}
+{"at":"2026-08-03T00:04:34.637Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":"low","fill_estimate":"2 eggs remaining out of 12","box_2d":[80,280,450,880]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-03T00:09:04.905Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.98,"fill_percent":null,"state":null,"fill_estimate":"4 eggs present out of 12 capacity","box_2d":[85,180,580,920]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-03T00:12:33.166Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":"2 eggs visible out of 12 slots","box_2d":[95,280,390,880]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}
+{"at":"2026-08-03T00:17:46.413Z","type":"vision_recognition","objects":[{"label":"egg_carton","confidence":0.95,"fill_percent":null,"state":null,"fill_estimate":"3 eggs visible in carton","box_2d":[80,180,680,920]}],"focus":"eggs","summary":"Needed: eggs\nWhy: below 15% of par\nUrgency: critical\nReply APPROVE to restock."}

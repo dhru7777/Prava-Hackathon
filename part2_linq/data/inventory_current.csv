@@ -1,0 +1,7 @@
+ts,date,time,dow,is_weekend,sku_id,sku_name,category,unit,qty_on_hand,par_level,visitors_day,restock_qty,runway_days,avg_daily_use_7d,stockout_risk
+2026-08-03T00:17:46,2026-08-03,20:17,Sun,1,MILK-WHOLE-1GAL,Whole milk 1 gal,dairy,gallon,0.5,6,657,0.0,0.23,2.2,1
+2026-08-03T00:17:46,2026-08-03,20:17,Sun,1,MILK-2PCT-1GAL,2% milk 1 gal,dairy,gallon,6.72,4.0,657,0.0,2.49,2.698,0
+2026-08-03T00:17:46,2026-08-03,20:17,Sun,1,MILK-OAT-1L,Oat milk 1L,alt-milk,liter,0.0,12.0,657,0.0,0.0,12.0,1
+2026-08-03T00:17:46,2026-08-03,20:17,Sun,1,EGG-LG-DZ,Large eggs dozen,eggs,dozen,1,20,657,0.0,0.07,14,1
+2026-08-03T00:17:46,2026-08-03,20:17,Sun,1,HALFHALF-QT,Half & half quart,dairy,quart,7.08,6.0,657,0.0,2.4,2.953,0
+2026-08-03T00:17:46,2026-08-03,20:17,Sun,1,BUTTER-UNSALT-LB,Unsalted butter lb,dairy,lb,4.24,8.0,657,0.0,7.15,0.593,0

@@ -1,0 +1,32 @@
+# Secrets
+.env
+**/.env
+*.pem
+*.key
+credentials*.json
+
+# Python
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/venv/
+*.egg-info/
+.pytest_cache/
+
+# Node
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Local runtime / media
+part1_vision/frames/
+**/*.mov
+**/*.mp4
+.DS_Store
+.idea/
+.vscode/
+*.log
+/tmp/
+
+# Optional local-only
+part2_messaging/.venv/

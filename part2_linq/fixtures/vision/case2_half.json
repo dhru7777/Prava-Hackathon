@@ -1,0 +1,20 @@
+{
+  "case": "2_half",
+  "description": "Milk jug about half full (~50%) — state low/borderline",
+  "objects": [
+    {
+      "label": "milk",
+      "confidence": 0.93,
+      "fill_percent": 50,
+      "state": "low",
+      "fill_estimate": "about half",
+      "box_2d": [100, 240, 900, 760]
+    },
+    {
+      "label": "egg_carton",
+      "confidence": 0.88,
+      "fill_percent": null,
+      "box_2d": [200, 50, 600, 400]
+    }
+  ]
+}
