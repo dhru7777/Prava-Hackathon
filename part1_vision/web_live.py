@@ -1101,11 +1101,27 @@ PAGE = """<!doctype html>
     let liveChatId = null;
     let composeBusy = false;
     /** When set, only show messages newer than this ISO time (demo hide). */
-    let chatHideAfterAt = null;
+    let chatHideAfterAt = new Date().toISOString();
+    /** Auto-hide history once per page load (refresh always starts hidden). */
+    let autoHideDone = false;
     /** Last messages from /api/chat (Linq + local merge). */
     let lastServerMessages = [];
     /** Web-typed user lines kept until server history includes them. */
     const pendingWebUsers = [];
+
+    function applyDefaultHide(messages) {
+      if (autoHideDone) return;
+      autoHideDone = true;
+      let maxAt = chatHideAfterAt || new Date().toISOString();
+      (messages || []).forEach(function (m) {
+        if (m && m.at && String(m.at) > maxAt) maxAt = String(m.at);
+      });
+      pendingWebUsers.forEach(function (p) {
+        if (p && p.at && String(p.at) > maxAt) maxAt = String(p.at);
+      });
+      chatHideAfterAt = maxAt;
+      updateHideBtn();
+    }
 
     function normMsg(t) {
       return String(t || "").replace(/\s+/g, " ").trim().toLowerCase();
@@ -1444,6 +1460,7 @@ PAGE = """<!doctype html>
         }
         if (data.chatId) liveChatId = data.chatId;
         prunePendingAgainst(data.messages || []);
+        applyDefaultHide(data.messages || []);
         renderChat(data.messages || []);
       } catch (e) {
         thread.innerHTML =
