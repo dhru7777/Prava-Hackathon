@@ -533,6 +533,50 @@ PAGE = """<!doctype html>
       color: rgba(255,255,255,0.7); font-weight: 600;
       z-index: 3;
     }
+    .live-clock {
+      position: absolute;
+      top: 2.35rem;
+      left: 0.9rem;
+      z-index: 3;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.75);
+      font-variant-numeric: tabular-nums;
+      opacity: 0.95;
+    }
+    .live-clock .sec { opacity: 0.75; font-weight: 500; }
+    #detectBtn {
+      background: #fff;
+      color: var(--ink);
+      box-shadow:
+        0 0 0 0 rgba(255, 214, 90, 0.85),
+        0 0 18px rgba(255, 196, 60, 0.75);
+      animation: detectGlow 1.6s ease-in-out infinite;
+    }
+    #detectBtn:hover {
+      filter: brightness(1.05);
+    }
+    #detectBtn:disabled {
+      animation: none;
+      box-shadow: none;
+      opacity: 0.55;
+    }
+    @keyframes detectGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 0 0 rgba(255, 214, 90, 0.15),
+          0 0 12px rgba(255, 196, 60, 0.45);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow:
+          0 0 0 8px rgba(255, 214, 90, 0),
+          0 0 28px rgba(255, 196, 60, 0.95);
+        transform: scale(1.04);
+      }
+    }
     /* Per-quadrant expand for demos */
     .fs-btn {
       position: absolute;
@@ -965,6 +1009,7 @@ PAGE = """<!doctype html>
         <span class="icon-expand">⛶</span><span class="icon-exit">✕</span>
       </button>
       <div class="badge" id="liveBadge">Live</div>
+      <div class="live-clock" id="liveClock" aria-live="polite">—</div>
       <img class="live" id="live" src="/stream" alt="Live camera" />
       <div class="chrome">
         <div class="left">
@@ -976,7 +1021,7 @@ PAGE = """<!doctype html>
           <span class="label" id="status">starting…</span>
         </div>
         <div class="left">
-          <button id="detectBtn" onclick="runDetect()">Detect now</button>
+          <button id="detectBtn" onclick="runDetect()" title="Click to detect low stock">Detect now</button>
         </div>
       </div>
     </section>
@@ -995,6 +1040,26 @@ PAGE = """<!doctype html>
   </div>
   <script>
     let busy = false;
+
+    function tickLiveClock() {
+      const el = document.getElementById("liveClock");
+      if (!el) return;
+      const now = new Date();
+      const date = now.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+      const time = now.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+      el.textContent = date + " · " + time;
+    }
+    tickLiveClock();
+    setInterval(tickLiveClock, 1000);
 
     function toggleQuadFs(btn) {
       const stage = document.querySelector(".stage");
