@@ -36,8 +36,7 @@ Copy each `.env.example` → `.env` and fill keys.
 
 **OpenCV / camera (web app)**
 
-- OpenCV needs a real local camera device. The Railway web app cannot open your laptop or phone camera, so Live/Detect has no video feed on the hosted URL.
-- Full camera demo only works on localhost (`:8765`) with webcam or Continuity Camera.
-- Continuity Camera is macOS-local only. It does not stream through a remote server.
-- Camera index can change when devices reconnect. If the feed is blank, switch the camera index in the UI.
-- Hosted demo still supports chat, Approve, Linq messaging, and Prava/Visa sandbox pay without the camera.
+- OpenCV cannot open a laptop or phone camera on Railway. The hosted Live quadrant uses a static **Live dummy** fridge still (`part1_vision/assets/dummy_fridge.png`).
+- Detect still runs the same flow on that image (vision → Needed alert → Approve → Prava pay).
+- Real webcam / Continuity Camera only works on localhost. Set `USE_DUMMY_FEED=false` locally to force a real camera.
+- Continuity Camera is macOS-local only and does not stream through a remote server.

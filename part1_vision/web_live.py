@@ -128,6 +128,10 @@ CAMERA_LABELS = {
     2: "Phone (Continuity)",
 }
 
+DUMMY_PATH = ROOT / "assets" / "dummy_fridge.png"
+# true/yes = always dummy | false/no = real camera only | auto = dummy if camera fails
+_USE_DUMMY_RAW = (os.getenv("USE_DUMMY_FEED") or "auto").strip().lower()
+
 # Active live camera shown in Q1 (switchable)
 STATE_LOCK = threading.Lock()
 ACTIVE_CAMERA = int(os.getenv("CAMERA_INDEX", "0"))
@@ -146,6 +150,24 @@ LAST_DETECT: dict = {
 }
 
 
+def load_dummy_bgr() -> np.ndarray:
+    """Static fridge still used when OpenCV has no camera (e.g. Railway)."""
+    img = cv2.imread(str(DUMMY_PATH))
+    if img is None:
+        blank = np.full((720, 1280, 3), 36, dtype=np.uint8)
+        cv2.putText(
+            blank,
+            "Dummy feed missing",
+            (40, 360),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1.2,
+            (220, 220, 220),
+            2,
+        )
+        return blank
+    return img
+
+
 class CameraStream:
     def __init__(self, index: int) -> None:
         self.index = index
@@ -156,6 +178,7 @@ class CameraStream:
         self._thread: threading.Thread | None = None
         self._error: str | None = None
         self._frames = 0
+        self._using_dummy = False
 
     def start(self) -> None:
         if self._running:
@@ -187,13 +210,36 @@ class CameraStream:
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
         return cap
 
+    def _loop_dummy(self) -> None:
+        frame = load_dummy_bgr()
+        self._using_dummy = True
+        self._error = None
+        print(f"[camera] using dummy feed ({DUMMY_PATH.name}) for index {self.index}")
+        while self._running:
+            with self._lock:
+                self._frame = frame
+                self._frames += 1
+            time.sleep(0.2)
+
     def _loop(self) -> None:
+        force_dummy = _USE_DUMMY_RAW in {"1", "true", "yes", "dummy"}
+        never_dummy = _USE_DUMMY_RAW in {"0", "false", "no", "camera"}
+
+        if force_dummy:
+            self._loop_dummy()
+            return
+
         try:
             self._cap = self._open()
             self._error = None
+            self._using_dummy = False
         except Exception as exc:  # noqa: BLE001
-            self._error = str(exc)
-            self._running = False
+            if never_dummy:
+                self._error = str(exc)
+                self._running = False
+                return
+            print(f"[camera] open failed ({exc}); falling back to dummy feed")
+            self._loop_dummy()
             return
 
         while self._running:
@@ -205,6 +251,7 @@ class CameraStream:
             with self._lock:
                 self._frame = frame
                 self._frames += 1
+                self._using_dummy = False
             time.sleep(0.03)
 
         with self._lock:
@@ -229,13 +276,15 @@ class CameraStream:
             has = self._frame is not None
             frames = self._frames
             err = self._error
+            dummy = self._using_dummy
         return {
             "index": self.index,
-            "label": CAMERA_LABELS.get(self.index, f"cam {self.index}"),
+            "label": "Live dummy" if dummy else CAMERA_LABELS.get(self.index, f"cam {self.index}"),
             "running": self._running,
             "has_frame": has,
             "frames": frames,
             "error": err,
+            "dummy": dummy,
         }
 
 
@@ -915,7 +964,7 @@ PAGE = """<!doctype html>
       <button type="button" class="fs-btn" onclick="toggleQuadFs(this)" title="Expand quadrant" aria-label="Expand Live">
         <span class="icon-expand">⛶</span><span class="icon-exit">✕</span>
       </button>
-      <div class="badge">Live</div>
+      <div class="badge" id="liveBadge">Live</div>
       <img class="live" id="live" src="/stream" alt="Live camera" />
       <div class="chrome">
         <div class="left">
@@ -1416,8 +1465,10 @@ PAGE = """<!doctype html>
         const data = await res.json();
         document.getElementById('cam').value = String(data.active_camera);
         const st = data.stream || {};
+        const liveBadge = document.getElementById('liveBadge');
+        if (liveBadge) liveBadge.textContent = st.dummy ? 'Live dummy' : 'Live';
         document.getElementById('status').textContent = st.has_frame
-          ? ('live · ' + (st.label || ''))
+          ? (st.dummy ? 'Live dummy' : ('live · ' + (st.label || '')))
           : ('no frame · ' + (st.error || 'check Continuity'));
         if (data.last_detect && data.last_detect.image_ready) {
           const img = document.getElementById('annotated');
